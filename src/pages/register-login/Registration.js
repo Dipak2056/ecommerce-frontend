@@ -1,8 +1,13 @@
 import React from "react";
 import DefaultLayout from "../../components/pages/layouts/DefaultLayout";
+import { RegisterForm } from "../../components/register-form/RegisterForm";
 
 const Registration = () => {
-  return <DefaultLayout>Registration page</DefaultLayout>;
+  return (
+    <DefaultLayout>
+      <RegisterForm />
+    </DefaultLayout>
+  );
 };
 
 export default Registration;
