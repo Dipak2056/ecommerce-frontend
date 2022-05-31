@@ -8,7 +8,7 @@ const DefaultLayout = ({ children }) => {
       {/* header  */}
       <Header />
       {/* main content  */}
-      <mai className="main">{children}</mai>
+      <main className="main">{children}</main>
       {/* footer  */}
       <Footer />
     </div>
