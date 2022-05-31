@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { postUserAction } from "../../pages/register-login/signInUpAction";
 import "./registerForm.css";
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({});
   const [error, setError] = useState(false);
 
@@ -16,13 +19,17 @@ export const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, confirmPassword } = form;
-    password === confirmPassword ? setError(false) : setError(true);
-    console.log(form);
+
+    if (password !== confirmPassword) {
+      return setError(true);
+    }
+    setError(false);
+    dispatch(postUserAction());
   };
   return (
     <div>
       <Container>
-        <div className="form-content mt-5">
+        <div className="form-content mt-5 mb-5">
           <h1>Register Form</h1>
           <hr />
           <Form onSubmit={handleSubmit}>
