@@ -155,6 +155,10 @@ export const RegisterForm = () => {
               </Button>
             </Form.Group>
           </Form>
+          <div className="text-end">
+            Already have an account?
+            <a href="/">Login Now</a>
+          </div>
         </div>
       </Container>
     </div>
