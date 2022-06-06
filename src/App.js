@@ -17,7 +17,7 @@ const App = () => {
             path="/admin/verify-email"
             element={<EmailVerification />}
           ></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/" element={<LoginPage />}></Route>
           <Route path="*" element={<h1>404 page not found</h1>}></Route>
         </Routes>
       </BrowserRouter>
