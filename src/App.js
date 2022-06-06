@@ -3,6 +3,8 @@ import "./App.css";
 import RegistrationPage from "./pages/register-login/Registration";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/register-login/LoginPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
@@ -14,6 +16,7 @@ const App = () => {
           <Route path="*" element={<h1>404 page not found</h1>}></Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
