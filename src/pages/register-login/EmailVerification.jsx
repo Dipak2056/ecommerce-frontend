@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Spinner } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
-import { postEmaiVerification } from "../../helpers/axioshelper";
+import { postEmailVerification } from "../../helpers/axioshelper";
 
 export const EmailVerification = () => {
   const [queryParams] = useSearchParams();
@@ -21,7 +21,7 @@ export const EmailVerification = () => {
     // doFetch();
     // IIFE
     (async () => {
-      const response = await postEmaiVerification(obj);
+      const response = await postEmailVerification(obj);
       setResponse(response);
       setIsPending(false);
       console.log(response);

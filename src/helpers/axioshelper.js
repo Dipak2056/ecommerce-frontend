@@ -13,7 +13,7 @@ export const postUser = async (usrObj) => {
     };
   }
 };
-export const postEmaiVerification = async (obj) => {
+export const postEmailVerification = async (obj) => {
   try {
     const { data } = await axios.post(adminEP + "/email-verification", obj);
     return data;
