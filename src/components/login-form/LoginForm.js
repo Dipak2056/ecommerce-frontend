@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
+import React, { useRef } from "react";
+import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postUserAction } from "../../pages/register-login/signInUpAction";
+import { postLoginAction } from "../../pages/register-login/signInUpAction";
 import "./loginform.css";
 
 const initialState = {
@@ -10,29 +10,23 @@ const initialState = {
 };
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState(initialState);
-  const [error, setError] = useState(false);
 
   //pull data from redux store
   const { isLoading } = useSelector((state) => state.signInUp);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
+  const emailRef = useRef();
+  const passRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (form.password !== form.confirmPassword) {
-      return setError(true);
+    const email = emailRef.current.value;
+    const password = passRef.current.value;
+    if (!email || !password) {
+      return alert("Both input field must be filled");
     }
-    setError(false);
-    const { confirmPassword, ...rest } = form;
-    dispatch(postUserAction(rest));
+    console.log(email, password);
+    //call api, thru action.
+    dispatch(postLoginAction({ email, password }));
   };
   return (
     <div>
@@ -44,9 +38,8 @@ export const LoginForm = () => {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                onChange={handleChange}
+                ref={emailRef}
                 name="email"
-                value={form.email}
                 placeholder="Enter email"
                 required
               />
@@ -55,10 +48,9 @@ export const LoginForm = () => {
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label> Password</Form.Label>
               <Form.Control
-                onChange={handleChange}
+                ref={passRef}
                 type="password"
                 name="password"
-                value={form.password}
                 placeholder="Password"
                 required
               />
