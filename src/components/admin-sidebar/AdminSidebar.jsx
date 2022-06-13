@@ -68,6 +68,12 @@ const AdminSidebar = () => {
               </Link>
             </ListGroup.Item>
           </ListGroup>
+          <ListGroup.Item>
+            <Link className="nav-link" to="/logout">
+              {" "}
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </Link>
+          </ListGroup.Item>
         </Offcanvas.Body>
       </Offcanvas>
     </div>
