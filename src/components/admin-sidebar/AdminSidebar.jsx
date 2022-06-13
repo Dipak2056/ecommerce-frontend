@@ -15,6 +15,7 @@ const AdminSidebar = () => {
       <Offcanvas
         show={showAdminSidebar}
         onHide={() => dispatch(toggleSidebar())}
+        onClick={() => dispatch(toggleSidebar())}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Admin Side Menu</Offcanvas.Title>

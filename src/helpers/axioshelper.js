@@ -1,6 +1,7 @@
 import axios from "axios";
 const rootUrlAPI = "http://localhost:8000/api/v1";
 const adminEP = rootUrlAPI + "/admin";
+
 export const postUser = async (usrObj) => {
   try {
     const { data } = await axios.post(adminEP, usrObj);
@@ -13,6 +14,7 @@ export const postUser = async (usrObj) => {
     };
   }
 };
+
 export const postEmailVerification = async (obj) => {
   try {
     const { data } = await axios.post(adminEP + "/email-verification", obj);
@@ -25,6 +27,7 @@ export const postEmailVerification = async (obj) => {
     };
   }
 };
+
 export const loginUser = async (usrObj) => {
   try {
     const { data } = await axios.post(adminEP + "/login", usrObj);
