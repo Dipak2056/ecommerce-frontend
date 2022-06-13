@@ -18,6 +18,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin-profile" element={<AdminProfile />} />
           <Route path="/" element={<LoginPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegistrationPage />}></Route>
           <Route
             path="/admin/verify-email"
