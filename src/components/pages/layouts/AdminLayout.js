@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import AdminSidebar from "../../admin-sidebar/AdminSidebar";
 import Footer from "./Footer";
 import { Header } from "./Header";
@@ -10,7 +11,9 @@ const AdminLayout = ({ children }) => {
       <Header />
       <AdminSidebar />
       {/* main content  */}
-      <main className="main">{children}</main>
+      <Container>
+        <main className="main">{children}</main>
+      </Container>
       {/* footer  */}
       <Footer />
     </div>
