@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { postCategoriesAction } from "../../pages/categories/categoryAction";
 
 const initialState = {
-  parentCat: "",
+  status: "inactive",
+  parentCatId: "",
   catName: "",
 };
 export const CategoriesForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
+  const { categories } = useSelector((state) => state.category);
+
   const handleOnChange = (e) => {
-    const { name, value } = e.target;
+    let { checked, name, value } = e.target;
+    if (name === "status") {
+      value = checked ? "active" : "inactive";
+    }
+
+    console.log(checked, name, value);
+
     setForm({
       ...form,
       [name]: value,
@@ -16,23 +28,40 @@ export const CategoriesForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const parentCatId = form.parentCatId ? form.parentCatId : undefined;
+    dispatch(postCategoriesAction({ ...form, parentCatId }));
+
     console.log(form);
   };
   return (
     <div>
       <Form className="py-5" onSubmit={handleOnSubmit}>
         <Row className="g-3">
-          <Col md="5">
+          <Col md="2">
+            <Form.Check
+              onChange={handleOnChange}
+              name="status"
+              type="switch"
+              id="custom-switch"
+              label="Check this switch"
+            />
+          </Col>
+          <Col md="4">
             <Form.Group controlId="formGridState">
               <Form.Select
-                name="parentCat"
+                name="parentCatId"
                 defaultValue="Choose..."
                 onChange={handleOnChange}
               >
-                <option>Choose...</option>
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
+                <option value="">..select parent Category</option>
+                {categories.map(
+                  (item) =>
+                    !item.parentCatId && (
+                      <option key={item._id} value={item._id}>
+                        {item.catName}
+                      </option>
+                    )
+                )}
               </Form.Select>
             </Form.Group>
           </Col>
@@ -44,7 +73,7 @@ export const CategoriesForm = () => {
               required
             />
           </Col>
-          <Col md="3">
+          <Col md="2">
             <Button type="submit">Add Category</Button>
           </Col>
         </Row>
