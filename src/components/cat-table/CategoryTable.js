@@ -49,7 +49,6 @@ export const CategoryTable = () => {
                 <Button variant="warning">Edit</Button>{" "}
                 <Button
                   title="You can only delete if child category doesnot exist"
-                  disabled={!item.parentCatId}
                   variant="danger"
                   onClick={() => {
                     handleOndelete(item._id);
