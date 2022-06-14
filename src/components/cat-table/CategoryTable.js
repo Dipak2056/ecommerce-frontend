@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoriesAction } from "../../pages/categories/categoryAction";
+import {
+  deleteCategoriesAction,
+  fetchCategoriesAction,
+} from "../../pages/categories/categoryAction";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
@@ -11,6 +14,11 @@ export const CategoryTable = () => {
     //call api to fetch
     dispatch(fetchCategoriesAction());
   }, []);
+  const handleOndelete = (_id) => {
+    if (window.confirm("Are you sure you want to delete this category")) {
+      dispatch(deleteCategoriesAction(_id));
+    }
+  };
   return (
     <div>
       <p>{categories.length} Categories Found!</p>
@@ -26,7 +34,7 @@ export const CategoryTable = () => {
         </thead>
         <tbody>
           {categories.map((item, i) => (
-            <tr>
+            <tr key={item._id}>
               <td>{i + 1}</td>
               <td
                 className={
@@ -39,7 +47,16 @@ export const CategoryTable = () => {
               <td>{item.parentCatId}</td>
               <td>
                 <Button variant="warning">Edit</Button>{" "}
-                <Button variant="danger">Delete</Button>
+                <Button
+                  title="You can only delete if child category doesnot exist"
+                  disabled={!item.parentCatId}
+                  variant="danger"
+                  onClick={() => {
+                    handleOndelete(item._id);
+                  }}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
