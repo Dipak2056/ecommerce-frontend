@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategoriesAction,
   fetchCategoriesAction,
 } from "../../pages/categories/categoryAction";
+import { toggleModal } from "../../system-state/systemSlice";
+import { EditCategories } from "../cat-form/EditCategories";
+import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const [selectedCat, setSelectedCat] = useState({});
 
   useEffect(() => {
     //call api to fetch
@@ -19,8 +23,13 @@ export const CategoryTable = () => {
       dispatch(deleteCategoriesAction(_id));
     }
   };
+  const handleOnEdit = (cat) => {
+    setSelectedCat(cat);
+    dispatch(toggleModal());
+  };
   return (
     <div>
+      <EditCategories selectedCat={selectedCat} />
       <p>{categories.length} Categories Found!</p>
       <Table striped bordered hover>
         <thead>
@@ -46,7 +55,9 @@ export const CategoryTable = () => {
               <td>{item.catName}</td>
               <td>{item.parentCatId}</td>
               <td>
-                <Button variant="warning">Edit</Button>{" "}
+                <Button variant="warning" onClick={() => handleOnEdit(item)}>
+                  Edit
+                </Button>{" "}
                 <Button
                   title="You can only delete if child category doesnot exist"
                   variant="danger"

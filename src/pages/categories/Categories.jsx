@@ -9,7 +9,7 @@ const Categories = () => {
       <h3 className="mt-3">Category</h3>
       <CategoriesForm></CategoriesForm>
       <hr />
-      <CategoryTable></CategoryTable>
+      <CategoryTable />
     </AdminLayout>
   );
 };
