@@ -45,6 +45,10 @@ export const postCategories = (dataObj) => {
   const url = catEP;
   return apiprocessor({ method: "post", url, dataObj });
 };
+export const updateCategory = (dataObj) => {
+  const url = catEP;
+  return apiprocessor({ method: "put", url, dataObj });
+};
 export const deleteCategory = (_id) => {
   const url = catEP;
   return apiprocessor({ method: "delete", url, dataObj: { _id } });

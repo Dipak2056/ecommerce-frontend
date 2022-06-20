@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { postCategoriesAction } from "../../pages/categories/categoryAction";
+import {
+  postCategoriesAction,
+  updateCategoriesAction,
+} from "../../pages/categories/categoryAction";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 const initialState = {
@@ -36,7 +39,7 @@ export const EditCategories = ({ selectedCat }) => {
     const parentCatId = form.parentCatId ? form.parentCatId : undefined;
     //dispatch action to update the category
 
-    // dispatch(postCategoriesAction({ ...form, parentCatId }));
+    dispatch(updateCategoriesAction({ ...form, parentCatId }));
 
     console.log(form);
   };
@@ -52,6 +55,7 @@ export const EditCategories = ({ selectedCat }) => {
                 type="switch"
                 id="custom-switch"
                 label="Check this switch"
+                checked={form.status === "active"}
               />
             </Col>
             <Col md="4">
@@ -65,7 +69,11 @@ export const EditCategories = ({ selectedCat }) => {
                   {categories.map(
                     (item) =>
                       !item.parentCatId && (
-                        <option key={item._id} value={item._id}>
+                        <option
+                          key={item._id}
+                          value={item._id}
+                          selected={item._id === form.parentCatId}
+                        >
                           {item.catName}
                         </option>
                       )
@@ -76,6 +84,7 @@ export const EditCategories = ({ selectedCat }) => {
             <Col md="4">
               <Form.Control
                 name="catName"
+                value={form.catName}
                 placeholder="category Name"
                 onChange={handleOnChange}
                 required
