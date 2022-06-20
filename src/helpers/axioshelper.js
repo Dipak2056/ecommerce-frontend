@@ -2,6 +2,7 @@ import axios from "axios";
 const rootUrlAPI = "http://localhost:8000/api/v1";
 const adminEP = rootUrlAPI + "/admin";
 const catEP = rootUrlAPI + "/category";
+const productEP = rootUrlAPI + "/products";
 
 const apiprocessor = async ({ method, url, dataObj }) => {
   try {
@@ -52,4 +53,10 @@ export const updateCategory = (dataObj) => {
 export const deleteCategory = (_id) => {
   const url = catEP;
   return apiprocessor({ method: "delete", url, dataObj: { _id } });
+};
+
+//===========products api ===========
+export const getProducts = () => {
+  const url = productEP;
+  return apiprocessor({ method: "get", url });
 };

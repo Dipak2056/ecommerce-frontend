@@ -33,7 +33,9 @@ export const CategoryTable = () => {
   return (
     <div>
       <EditCategories selectedCat={selectedCat} />
-      <p>{categories.length} Categories Found!</p>
+      <p>
+        {parentCats.length} Categories found with {childCats.length} items
+      </p>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -47,8 +49,10 @@ export const CategoryTable = () => {
             <>
               <tr key={item._id}>
                 <td>
-                  {item.parentCatId}
-                  {item.catName}
+                  <b>
+                    {item.parentCatId}
+                    {item.catName}
+                  </b>
                 </td>
                 <td
                   className={
