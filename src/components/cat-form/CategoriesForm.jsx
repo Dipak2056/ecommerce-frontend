@@ -19,8 +19,6 @@ export const CategoriesForm = () => {
       value = checked ? "active" : "inactive";
     }
 
-    console.log(checked, name, value);
-
     setForm({
       ...form,
       [name]: value,
@@ -30,8 +28,6 @@ export const CategoriesForm = () => {
     e.preventDefault();
     const parentCatId = form.parentCatId ? form.parentCatId : undefined;
     dispatch(postCategoriesAction({ ...form, parentCatId }));
-
-    console.log(form);
   };
   return (
     <div>
