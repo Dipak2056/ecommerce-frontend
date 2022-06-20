@@ -29,6 +29,7 @@ export const CategoryTable = () => {
   };
   const parentCats = categories.filter((item) => !item.parentCatId);
   const childCats = categories.filter((item) => item.parentCatId);
+  console.log(categories, parentCats);
   return (
     <div>
       <EditCategories selectedCat={selectedCat} />
@@ -45,11 +46,13 @@ export const CategoryTable = () => {
           {parentCats.map((item, i) => (
             <>
               <tr key={item._id}>
-                {/* <td>{i + 1}</td> */}
-                <td>{item.catName}</td>
+                <td>
+                  {item.parentCatId}
+                  {item.catName}
+                </td>
                 <td
                   className={
-                    item.status === "active" ? "text-success" : "text-info"
+                    item.status === "active" ? "text-success" : "text-danger"
                   }
                 >
                   {item.status}
@@ -79,15 +82,17 @@ export const CategoryTable = () => {
                       </td>
                       <td
                         className={
-                          cat.status === "active" ? "text-success" : "text-info"
+                          cat.status === "active"
+                            ? "text-success"
+                            : "text-danger"
                         }
                       >
-                        {item.status}
+                        {cat.status}
                       </td>
                       <td>
                         <Button
                           variant="warning"
-                          onClick={() => handleOnEdit(item)}
+                          onClick={() => handleOnEdit(cat)}
                         >
                           Edit
                         </Button>{" "}
@@ -95,7 +100,7 @@ export const CategoryTable = () => {
                           title="You can only delete if child category doesnot exist"
                           variant="danger"
                           onClick={() => {
-                            handleOndelete(item._id);
+                            handleOndelete(cat._id);
                           }}
                         >
                           Delete
