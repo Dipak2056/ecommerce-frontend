@@ -13,7 +13,6 @@ const initialState = {
   catName: "",
 };
 export const EditCategories = ({ selectedCat }) => {
-  console.log(selectedCat);
   const dispatch = useDispatch();
   const [form, setForm] = useState(selectedCat);
   const { categories } = useSelector((state) => state.category);
@@ -36,10 +35,10 @@ export const EditCategories = ({ selectedCat }) => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const parentCatId = form.parentCatId ? form.parentCatId : undefined;
     //dispatch action to update the category
+    const { parentCatId, catName, status, _id } = form;
 
-    dispatch(updateCategoriesAction({ ...form, parentCatId }));
+    dispatch(updateCategoriesAction({ _id, parentCatId, catName, status }));
 
     console.log(form);
   };
