@@ -5,14 +5,10 @@ import {
   deleteCategoriesAction,
   fetchCategoriesAction,
 } from "../../pages/categories/categoryAction";
-import { toggleModal } from "../../system-state/systemSlice";
-import { EditCategories } from "../cat-form/EditCategories";
-import { MyVerticallyCenteredModal } from "../modal/Modal";
 
-export const CategoryTable = () => {
+export const ProductTable = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
-  const [selectedCat, setSelectedCat] = useState({});
 
   useEffect(() => {
     //call api to fetch
@@ -23,15 +19,11 @@ export const CategoryTable = () => {
       dispatch(deleteCategoriesAction(_id));
     }
   };
-  const handleOnEdit = (cat) => {
-    setSelectedCat(cat);
-    dispatch(toggleModal());
-  };
+
   const parentCats = categories.filter((item) => !item.parentCatId);
   const childCats = categories.filter((item) => item.parentCatId);
   return (
     <div>
-      <EditCategories selectedCat={selectedCat} />
       <p>{categories.length} Categories Found!</p>
       <Table striped bordered hover>
         <thead>
@@ -55,9 +47,7 @@ export const CategoryTable = () => {
                   {item.status}
                 </td>
                 <td>
-                  <Button variant="warning" onClick={() => handleOnEdit(item)}>
-                    Edit
-                  </Button>{" "}
+                  <Button variant="warning">Edit</Button>{" "}
                   <Button
                     title="You can only delete if child category doesnot exist"
                     variant="danger"
@@ -85,12 +75,7 @@ export const CategoryTable = () => {
                         {item.status}
                       </td>
                       <td>
-                        <Button
-                          variant="warning"
-                          onClick={() => handleOnEdit(item)}
-                        >
-                          Edit
-                        </Button>{" "}
+                        <Button variant="warning">Edit</Button>{" "}
                         <Button
                           title="You can only delete if child category doesnot exist"
                           variant="danger"
