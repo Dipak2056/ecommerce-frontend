@@ -54,7 +54,7 @@ export const ProductTable = () => {
                     Edit
                   </Button>{" "}
                   <Button
-                    className="btn-sm"
+                    className="btn-sm m-auto"
                     title="You can only delete if child category doesnot exist"
                     variant="danger"
                     onClick={() => {

@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import Categories from "./pages/categories/Categories";
 import Product from "./pages/product/Product";
+import NewProduct from "./pages/product/NewProduct";
 
 const App = () => {
   return (
@@ -21,7 +22,9 @@ const App = () => {
           <Route path="/admin-profile" element={<AdminProfile />} />
 
           <Route path="/categories" element={<Categories />}></Route>
+
           <Route path="/products" element={<Product />}></Route>
+          <Route path="/product/new" element={<NewProduct />}></Route>
 
           <Route path="/" element={<LoginPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
