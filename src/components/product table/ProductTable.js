@@ -46,10 +46,10 @@ export const ProductTable = () => {
                 </td>
                 <td>{item.name}</td>
                 <td>{item.qty}</td>
+                <td>${item.price.toLocaleString()}</td>
                 <td>{item.salesPrice || " - "}</td>
-                <td>{item.price}</td>
                 <td>{item.salesDate || "-"}</td>
-                <td>
+                <td className="px-5">
                   <Button variant="warning" className="btn-sm">
                     Edit
                   </Button>{" "}
