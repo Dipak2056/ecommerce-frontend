@@ -17,7 +17,7 @@ export const ProductTable = () => {
   };
 
   return (
-    <div>
+    <div style={{ overflowX: "scroll" }}>
       <p>{products.length} Products Found in the store</p>
       <Table striped bordered hover>
         <thead>
@@ -28,7 +28,7 @@ export const ProductTable = () => {
             <th>Quantity</th>
             <th>Price</th>
             <th>Sales Price</th>
-            <th>Sales End Date</th>
+            <th>Sales Date</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -39,7 +39,7 @@ export const ProductTable = () => {
                 <td>{i + 1}</td>
                 <td
                   className={
-                    item.status === "active" ? "text-success" : "text-info"
+                    item.status === "active" ? "text-success" : "text-danger"
                   }
                 >
                   {item.status}
@@ -48,7 +48,13 @@ export const ProductTable = () => {
                 <td>{item.qty}</td>
                 <td>${item.price.toLocaleString()}</td>
                 <td>{item.salesPrice || " - "}</td>
-                <td>{item.salesDate || "-"}</td>
+                <td>
+                  {item.salesStartDate
+                    ? new Date(item.salesStartDate).toLocaleDateString() +
+                      "-" +
+                      new Date(item.salesEndDate).toLocaleDateString()
+                    : "-"}
+                </td>
                 <td className="px-5">
                   <Button variant="warning" className="btn-sm">
                     Edit

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriesAction } from "../../pages/categories/categoryAction";
+import { postProductAction } from "../../pages/product/productAction";
 import { CustomInput } from "../custom-input/CustomInput";
 
 export const ProductForm = () => {
@@ -24,7 +25,7 @@ export const ProductForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
+    dispatch(postProductAction(form));
   };
 
   const inputFields = [
@@ -98,7 +99,7 @@ export const ProductForm = () => {
       </Form.Group>
       <Form.Group controlId="formGridState">
         <Form.Select
-          name="CatId"
+          name="catId"
           defaultValue="Choose..."
           required
           onChange={handleOnChange}

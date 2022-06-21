@@ -60,3 +60,8 @@ export const getProducts = () => {
   const url = productEP;
   return apiprocessor({ method: "get", url });
 };
+
+export const postProduct = (dataObj) => {
+  const url = productEP;
+  return apiprocessor({ method: "post", url, dataObj });
+};
