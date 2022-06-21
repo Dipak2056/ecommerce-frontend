@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AdminLayout from "../../components/pages/layouts/AdminLayout";
+import { ProductForm } from "../../components/product-form/ProductForm";
 
 const NewProduct = () => {
   return (
@@ -16,7 +17,9 @@ const NewProduct = () => {
       </div>
       <h1 className="mt-3">Add New Products </h1>
       <hr />
-      <div>Form</div>
+      <div>
+        <ProductForm />
+      </div>
     </AdminLayout>
   );
 };
