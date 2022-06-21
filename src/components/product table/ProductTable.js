@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { Button, Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsAction } from "../../pages/product/productAction";
 
 export const ProductTable = () => {
   const dispatch = useDispatch();
+  const [ids, setIds] = useState([]);
   const { products } = useSelector((state) => state.products);
 
   useEffect(() => {
@@ -15,6 +16,24 @@ export const ProductTable = () => {
   const handleOndelete = () => {
     console.log("deleted");
   };
+  const handleOnSelect = (e) => {
+    const { checked, value } = e.target;
+    console.log(checked, value);
+
+    if (value === "all") {
+      if (checked) {
+        const allIds = products.map((item) => item._id);
+        setIds(allIds);
+      } else {
+        setIds([]);
+      }
+      return;
+    }
+    //individual click
+    checked
+      ? setIds([...ids, value])
+      : setIds(ids.filter((id) => id !== value));
+  };
 
   return (
     <div style={{ overflowX: "scroll" }}>
@@ -22,6 +41,9 @@ export const ProductTable = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>
+              <Form.Check onChange={handleOnSelect} value="all" name="status" />
+            </th>
             <th>#</th>
             <th>Status</th>
             <th>Name</th>
@@ -36,6 +58,15 @@ export const ProductTable = () => {
           {products.map((item, i) => (
             <>
               <tr key={item._id}>
+                <td>
+                  <Form.Check
+                    name="status"
+                    id="custom-switch"
+                    onChange={handleOnSelect}
+                    value={item._id}
+                    checked={ids.includes(item._id)}
+                  />
+                </td>
                 <td>{i + 1}</td>
                 <td
                   className={
@@ -59,22 +90,23 @@ export const ProductTable = () => {
                   <Button variant="warning" className="btn-sm">
                     Edit
                   </Button>{" "}
-                  <Button
-                    className="btn-sm m-auto"
-                    title="You can only delete if child category doesnot exist"
-                    variant="danger"
-                    onClick={() => {
-                      handleOndelete(item._id);
-                    }}
-                  >
-                    Delete
-                  </Button>
                 </td>
               </tr>
             </>
           ))}
         </tbody>
       </Table>
+      <div>
+        {ids.length > 0 && (
+          <Button
+            className="btn-sm m-auto"
+            title="You can only delete if child category doesnot exist"
+            variant="danger"
+          >
+            Delete
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
