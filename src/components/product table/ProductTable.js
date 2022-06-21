@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsAction } from "../../pages/product/productAction";
+import {
+  deleteProductsAction,
+  fetchProductsAction,
+} from "../../pages/product/productAction";
 
 export const ProductTable = () => {
   const dispatch = useDispatch();
@@ -99,7 +102,8 @@ export const ProductTable = () => {
       <div>
         {ids.length > 0 && (
           <Button
-            className="btn-sm m-auto"
+            className="btn-lg"
+            onClick={() => dispatch(deleteProductsAction(ids)) && setIds([])}
             title="You can only delete if child category doesnot exist"
             variant="danger"
           >
