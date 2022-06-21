@@ -5,11 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { postLoginAction } from "../../pages/register-login/signInUpAction";
 import "./loginform.css";
 
-const initialState = {
-  email: "sam@gmail.com",
-  password: "123456",
-};
-
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,7 +27,6 @@ export const LoginForm = () => {
     if (!email || !password) {
       return alert("Both input field must be filled");
     }
-    console.log(email, password);
     //call api, thru action.
     dispatch(postLoginAction({ email, password }));
   };

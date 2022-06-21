@@ -12,7 +12,7 @@ export const Header = () => {
     <Navbar bg="primary" expand="md" className="text-light">
       <Container>
         <Button variant="primary" onClick={() => dispatch(toggleSidebar())}>
-          <i class="fa-solid fa-bars"></i>
+          <i className="fa-solid fa-bars"></i>
         </Button>
         <LinkContainer to="/">
           <Navbar.Brand>My Store Admin</Navbar.Brand>

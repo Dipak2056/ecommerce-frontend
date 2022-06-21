@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoriesAction } from "../../pages/categories/categoryAction";
 import { CustomInput } from "../custom-input/CustomInput";
 
 export const ProductForm = () => {
+  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
+  const [form, setForm] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchCategoriesAction());
+  }, []);
+
+  const handleOnChange = (e) => {
+    let { checked, name, value } = e.target;
+    if (name === "status") value = checked ? "active" : "inactive";
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
 
   const inputFields = [
     {
@@ -13,6 +34,7 @@ export const ProductForm = () => {
       placeholder: "Product Name",
       required: true,
     },
+
     {
       name: "qty",
       lable: "QTY",
@@ -25,7 +47,6 @@ export const ProductForm = () => {
       lable: "SKU",
       placeholder: "Product unique text",
       required: true,
-      placeholder: "SKU",
     },
     {
       name: "price",
@@ -59,25 +80,28 @@ export const ProductForm = () => {
       name: "description",
       as: "textarea",
       label: "Description",
+      required: true,
       rows: 10,
     },
   ];
 
   return (
-    <Form>
+    <Form className="mb-5" onSubmit={handleOnSubmit}>
       <Form.Group className="mb-3">
         <Form.Check
           name="status"
           type="switch"
           id="custom-switch"
           label="Check this switch"
+          onChange={handleOnChange}
         ></Form.Check>
       </Form.Group>
       <Form.Group controlId="formGridState">
         <Form.Select
-          name="parentCatId"
+          name="CatId"
           defaultValue="Choose..."
-          // onChange={handleOnChange}
+          required
+          onChange={handleOnChange}
         >
           <option value="">..select parent Category</option>
           {categories.map(
@@ -92,7 +116,7 @@ export const ProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => (
-        <CustomInput key={i} {...item} />
+        <CustomInput key={i} {...item} onChange={handleOnChange} />
       ))}
 
       <Button variant="primary" type="submit">

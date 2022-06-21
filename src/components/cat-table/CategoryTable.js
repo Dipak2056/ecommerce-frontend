@@ -7,7 +7,6 @@ import {
 } from "../../pages/categories/categoryAction";
 import { toggleModal } from "../../system-state/systemSlice";
 import { EditCategories } from "../cat-form/EditCategories";
-import { MyVerticallyCenteredModal } from "../modal/Modal";
 
 export const CategoryTable = () => {
   const dispatch = useDispatch();
@@ -76,12 +75,15 @@ export const CategoryTable = () => {
                   </Button>
                 </td>
               </tr>
-              {childCats.map((cat, index) => {
-                if (cat.parentCatId === item._id) {
-                  return (
+              {childCats.map(
+                (cat) =>
+                  cat.parentCatId === item._id && (
                     <tr key={cat._id}>
                       <td>
-                        ➡️
+                        <span role="img" aria-label="emoji">
+                          ➡️
+                        </span>
+
                         {cat.catName}
                       </td>
                       <td
@@ -111,9 +113,8 @@ export const CategoryTable = () => {
                         </Button>
                       </td>
                     </tr>
-                  );
-                }
-              })}
+                  )
+              )}
             </>
           ))}
         </tbody>

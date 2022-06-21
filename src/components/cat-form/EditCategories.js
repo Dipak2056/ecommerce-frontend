@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  postCategoriesAction,
-  updateCategoriesAction,
-} from "../../pages/categories/categoryAction";
+import { updateCategoriesAction } from "../../pages/categories/categoryAction";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
-const initialState = {
-  status: "inactive",
-  parentCatId: "",
-  catName: "",
-};
 export const EditCategories = ({ selectedCat }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(selectedCat);

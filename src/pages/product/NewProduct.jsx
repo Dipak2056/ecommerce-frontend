@@ -8,10 +8,10 @@ const NewProduct = () => {
   return (
     <AdminLayout>
       <div className="text-start mt-2">
-        <Link to="/product/new">
+        <Link to="/products">
           <Button variant="none">
             {" "}
-            <i class="fa-solid fa-chevron-left"></i> Back
+            <i className="fa-solid fa-chevron-left"></i> Back
           </Button>
         </Link>
       </div>
