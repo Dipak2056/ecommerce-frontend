@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   deleteProductsAction,
   fetchProductsAction,
@@ -19,6 +20,7 @@ export const ProductTable = () => {
   const handleOndelete = () => {
     console.log("deleted");
   };
+
   const handleOnSelect = (e) => {
     const { checked, value } = e.target;
     console.log(checked, value);
@@ -90,9 +92,11 @@ export const ProductTable = () => {
                     : "-"}
                 </td>
                 <td className="px-5">
-                  <Button variant="warning" className="btn-sm">
-                    Edit
-                  </Button>{" "}
+                  <Link to={`/product/edit/${item._id}}`}>
+                    <Button variant="warning" className="btn-sm">
+                      Edit
+                    </Button>{" "}
+                  </Link>
                 </td>
               </tr>
             </>
