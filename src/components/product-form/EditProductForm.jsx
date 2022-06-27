@@ -3,17 +3,32 @@ import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategoriesAction } from "../../pages/categories/categoryAction";
-import { postProductAction } from "../../pages/product/productAction";
+import { updateProductAction } from "../../pages/product/productAction";
 import { CustomInput } from "../custom-input/CustomInput";
 
+const initialState = {
+  catId: null,
+  name: "",
+  sku: "",
+  qty: 0,
+  price: 0,
+  salesPrice: 0,
+  salesStartDate: null,
+  salesEndDate: null,
+  status: "inactive",
+  description: "",
+};
 export const EditProductForm = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
-  const [form, setForm] = useState({});
+  const { selectedProduct } = useSelector((state) => state.products);
+  const [form, setForm] = useState(initialState);
+  console.log(selectedProduct);
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
-  }, []);
+    setForm(selectedProduct);
+  }, [selectedProduct]);
 
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
@@ -25,15 +40,27 @@ export const EditProductForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(postProductAction(form));
+    console.log(form);
+    const {
+      __v,
+      updatedAt,
+      thumbnail,
+      slug,
+      sku,
+      ratings,
+      image,
+      createdAt,
+      ...rest
+    } = form;
+    dispatch(updateProductAction(rest));
   };
-
   const inputFields = [
     {
       name: "name",
       lable: "Name",
       placeholder: "Product Name",
       required: true,
+      value: form.name,
     },
 
     {
@@ -41,6 +68,8 @@ export const EditProductForm = () => {
       lable: "QTY",
       placeholder: "Product quantity",
       type: "Number",
+      value: form.qty,
+
       required: true,
     },
     {
@@ -48,13 +77,16 @@ export const EditProductForm = () => {
       lable: "SKU",
       placeholder: "Product unique text",
       required: true,
+      value: form.sku,
+      disabled: true,
     },
     {
       name: "price",
       lable: "price",
-      type: "number",
+      type: "Number",
       placeholder: "Price",
       required: true,
+      value: form.price,
     },
     {
       name: "salesPrice",
@@ -62,6 +94,7 @@ export const EditProductForm = () => {
       type: "number",
       placeholder: "Product sales price",
       required: false,
+      value: form.salesPrice,
     },
     {
       name: "salesStartDate",
@@ -69,6 +102,7 @@ export const EditProductForm = () => {
       placeholder: "sales Start Date",
       required: false,
       type: "date",
+      value: form.salesStartDate ? form.salesStartDate.split("T")[0] : null,
     },
     {
       name: "salesEndDate",
@@ -76,6 +110,7 @@ export const EditProductForm = () => {
       placeholder: "sales End Date",
       required: false,
       type: "date",
+      value: form.salesEndDate ? form.salesEndDate.split("T")[0] : null,
     },
     {
       name: "description",
@@ -83,6 +118,7 @@ export const EditProductForm = () => {
       label: "Description",
       required: true,
       rows: 10,
+      value: form.description,
     },
   ];
 
@@ -95,6 +131,7 @@ export const EditProductForm = () => {
           id="custom-switch"
           label="Check this switch"
           onChange={handleOnChange}
+          checked={form.status === "active"}
         ></Form.Check>
       </Form.Group>
       <Form.Group controlId="formGridState">
@@ -108,7 +145,11 @@ export const EditProductForm = () => {
           {categories.map(
             (item) =>
               !item.parentCatId && (
-                <option key={item._id} value={item._id}>
+                <option
+                  key={item._id}
+                  value={item._id}
+                  selected={item._id === selectedProduct.catId}
+                >
                   {item.catName}
                 </option>
               )
@@ -121,7 +162,7 @@ export const EditProductForm = () => {
       ))}
 
       <Button variant="primary" type="submit">
-        Submit
+        update
       </Button>
     </Form>
   );

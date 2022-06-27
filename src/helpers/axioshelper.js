@@ -60,6 +60,10 @@ export const getProducts = () => {
   const url = productEP;
   return apiprocessor({ method: "get", url });
 };
+export const getSingleProduct = (_id) => {
+  const url = productEP + "/" + _id;
+  return apiprocessor({ method: "get", url });
+};
 
 export const postProduct = (dataObj) => {
   const url = productEP;
@@ -68,4 +72,8 @@ export const postProduct = (dataObj) => {
 export const deleteProducts = (dataObj) => {
   const url = productEP;
   return apiprocessor({ method: "delete", url, dataObj });
+};
+export const updateProduct = (dataObj) => {
+  const url = productEP;
+  return apiprocessor({ method: "put", url, dataObj });
 };

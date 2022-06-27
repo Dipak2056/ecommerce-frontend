@@ -1,11 +1,19 @@
 import React from "react";
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import AdminLayout from "../../components/pages/layouts/AdminLayout";
 import { EditProductForm } from "../../components/product-form/EditProductForm";
-import { ProductForm } from "../../components/product-form/ProductForm";
+import { fetchSingleProductAction } from "./productAction";
 
 const EditProduct = () => {
+  const dispatch = useDispatch();
+  const { _id } = useParams();
+
+  useEffect(() => {
+    _id && dispatch(fetchSingleProductAction(_id));
+  }, [_id]);
   return (
     <AdminLayout>
       <div className="text-start mt-2">
