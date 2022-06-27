@@ -14,7 +14,6 @@ export const fetchProductsAction = () => async (dispatch) => {
 };
 export const fetchSingleProductAction = (_id) => async (dispatch) => {
   const { status, products } = await getSingleProduct(_id);
-  console.log(products);
   status === "success" &&
     products._id &&
     dispatch(setSelectedProduct(products));

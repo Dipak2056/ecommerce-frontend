@@ -92,7 +92,7 @@ export const ProductTable = () => {
                     : "-"}
                 </td>
                 <td className="px-5">
-                  <Link to={`/product/edit/${item._id}}`}>
+                  <Link to={`/product/edit/${item._id}`}>
                     <Button variant="warning" className="btn-sm">
                       Edit
                     </Button>{" "}
