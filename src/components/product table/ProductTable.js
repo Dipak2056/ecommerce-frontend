@@ -17,10 +17,6 @@ export const ProductTable = () => {
     dispatch(fetchProductsAction());
   }, []);
 
-  const handleOndelete = () => {
-    console.log("deleted");
-  };
-
   const handleOnSelect = (e) => {
     const { checked, value } = e.target;
     console.log(checked, value);

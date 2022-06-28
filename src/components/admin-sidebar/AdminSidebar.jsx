@@ -24,54 +24,54 @@ const AdminSidebar = () => {
           <ListGroup variant="flush" className="fs-5">
             <ListGroup.Item>
               <Link className="nav-link" to="/dashboard">
-                <i class="fa-solid fa-house-chimney"></i> Home
+                <i className="fa-solid fa-house-chimney"></i> Home
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/dashboard">
-                <i class="fa-solid fa-gauge"></i> Dashboard
+                <i classname="fa-solid fa-gauge"></i> Dashboard
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/customers">
                 {" "}
-                <i class="fa-solid fa-people-line"></i> Customers
+                <i classname="fa-solid fa-people-line"></i> Customers
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/orders">
                 {" "}
-                <i class="fa-solid fa-table-cells"></i> Orders
+                <i classname="fa-solid fa-table-cells"></i> Orders
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/products">
                 {" "}
-                <i class="fa-brands fa-product-hunt"></i> Products
+                <i classname="fa-brands fa-product-hunt"></i> Products
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/categories">
-                <i class="fa-solid fa-sitemap"></i> Categories
+                <i classname="fa-solid fa-sitemap"></i> Categories
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/payments">
                 {" "}
-                <i class="fa-solid fa-credit-card"></i> Payments
+                <i classname="fa-solid fa-credit-card"></i> Payments
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
               <Link className="nav-link" to="/setting">
                 {" "}
-                <i class="fa-solid fa-gear"></i> Setting
+                <i classname="fa-solid fa-gear"></i> Setting
               </Link>
             </ListGroup.Item>
           </ListGroup>
           <ListGroup.Item>
             <Link className="nav-link" to="/logout">
               {" "}
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              <i classname="fa-solid fa-arrow-right-from-bracket"></i> Logout
             </Link>
           </ListGroup.Item>
         </Offcanvas.Body>
