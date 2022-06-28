@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import { useDispatch } from "react-redux";
+import { fetchPaymentMethods } from "../../pages/payment-method/paymentMethodAction";
 
 const PaymentMethodTable = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPaymentMethods());
+  }, []);
   return (
     <Table striped bordered hover size="sm">
       <thead>

@@ -5,6 +5,7 @@ import systemReducer from "./system-state/systemSlice";
 import adminReducer from "./pages/admin-profile/AdminProfileSlice";
 import categoryReducer from "./pages/categories/categorySlice";
 import productReducer from "./pages/product/productSlice";
+import paymentMethodSlice from "./pages/payment-method/paymentMethodSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     admin: adminReducer,
     category: categoryReducer,
     products: productReducer,
+    paymentMethods: paymentMethodSlice,
   },
 });
 
