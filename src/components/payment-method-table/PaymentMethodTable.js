@@ -22,23 +22,28 @@ const PaymentMethodTable = () => {
         </tr>
       </thead>
       <tbody>
-        {paymentMethods.map((item, i) => (
-          <tr key={i}>
-            <td>{i}</td>
-            <td>{item.status}</td>
-            <td>{item.name}</td>
-            <td>
-              <Button variant="warning">
-                <i className="fa-solid fa-pencil"></i>
-                Edit
-              </Button>{" "}
-              <Button variant="danger">
-                <i className="fa-solid fa-trash-can"></i>
-                Delete
-              </Button>
-            </td>
-          </tr>
-        ))}
+        {paymentMethods.length > 0 &&
+          paymentMethods.map(({ _id, name, status, description }, i) => (
+            <tr key={_id}>
+              <td>{i + 1}</td>
+              <td>{status}</td>
+              <td>
+                {name}{" "}
+                <i
+                  className="fa-solid fa-circle-info text-primary"
+                  title={description}
+                ></i>
+              </td>
+              <td>
+                <Button variant="warning" title="to edit payment methods">
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </Button>{" "}
+                <Button variant="danger">
+                  <i className="fa-solid fa-trash-can"></i>
+                </Button>
+              </td>
+            </tr>
+          ))}
       </tbody>
     </Table>
   );
