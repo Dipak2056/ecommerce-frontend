@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { postPaymentMethodAction } from "../../pages/payment-method/paymentMethodAction";
 import { CustomInput } from "../custom-input/CustomInput";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
@@ -9,6 +11,7 @@ const initialState = {
   description: "",
 };
 export const PaymentMethodForm = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
 
   const handleOnChange = (e) => {
@@ -24,6 +27,7 @@ export const PaymentMethodForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
+    dispatch(postPaymentMethodAction(form));
   };
   const inputfields = [
     {
