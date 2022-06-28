@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPaymentMethods } from "../../pages/payment-method/paymentMethodAction";
+import {
+  deletePaymentMethodAction,
+  fetchPaymentMethods,
+} from "../../pages/payment-method/paymentMethodAction";
 
 const PaymentMethodTable = () => {
   const dispatch = useDispatch();
@@ -38,7 +41,13 @@ const PaymentMethodTable = () => {
                 <Button variant="warning" title="to edit payment methods">
                   <i className="fa-solid fa-pen-to-square"></i>
                 </Button>{" "}
-                <Button variant="danger">
+                <Button
+                  variant="danger"
+                  onClick={() =>
+                    window.confirm("Are you sure") &&
+                    dispatch(deletePaymentMethodAction(_id))
+                  }
+                >
                   <i className="fa-solid fa-trash-can"></i>
                 </Button>
               </td>

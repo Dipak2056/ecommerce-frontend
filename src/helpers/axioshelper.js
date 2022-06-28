@@ -88,3 +88,7 @@ export const postPaymentMethod = (dataObj) => {
   const url = paymentMethodEp;
   return apiprocessor({ method: "post", url, dataObj });
 };
+export const deletePaymentMethod = (_id) => {
+  const url = paymentMethodEp + "/" + _id;
+  return apiprocessor({ method: "delete", url });
+};

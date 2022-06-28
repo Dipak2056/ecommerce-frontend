@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import {
+  deletePaymentMethod,
   getPaymentMethods,
   postPaymentMethod,
 } from "../../helpers/axioshelper";
@@ -23,4 +24,15 @@ export const postPaymentMethodAction = (obj) => async (dispatch) => {
   const response = await responsePromise;
   //get data and set to state
   response.status === "success" && dispatch(fetchPaymentMethods());
+};
+export const deletePaymentMethodAction = (_id) => async (dispatch) => {
+  //call axios to call api
+  const responsePromise = deletePaymentMethod(_id);
+  toast.promise(responsePromise, {
+    pending: "Please Wait..",
+  });
+  const response = await responsePromise;
+  toast[response.status](response.message);
+  //get data and set to state
+  response.status === "success" && dispatch(fetchPaymentMethods(_id));
 };
