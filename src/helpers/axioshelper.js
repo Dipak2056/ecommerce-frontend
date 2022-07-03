@@ -80,15 +80,20 @@ export const updateProduct = (dataObj) => {
 };
 
 //============payment methods =========
-export const getPaymentMethods = () => {
-  const url = paymentMethodEp;
+export const getPaymentMethods = (_id) => {
+  const url = _id ? paymentMethodEp + "/" + _id : paymentMethodEp;
+
   return apiprocessor({ method: "get", url });
 };
 export const postPaymentMethod = (dataObj) => {
   const url = paymentMethodEp;
   return apiprocessor({ method: "post", url, dataObj });
 };
+export const updatePaymentMethod = (dataObj) => {
+  const url = paymentMethodEp;
+  return apiprocessor({ method: "put", url, dataObj });
+};
 export const deletePaymentMethod = (_id) => {
-  const url = paymentMethodEp + "/" + _id;
+  const url = _id ? paymentMethodEp + "/" + _id : paymentMethodEp;
   return apiprocessor({ method: "delete", url });
 };
