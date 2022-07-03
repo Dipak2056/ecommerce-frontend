@@ -14,7 +14,7 @@ const AdminSidebar = () => {
       <Offcanvas
         show={showAdminSidebar}
         onHide={() => dispatch(toggleSidebar())}
-        onClick={() => dispatch(toggleSidebar())}
+        // onClick={() => dispatch(toggleSidebar())}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Admin Side Menu</Offcanvas.Title>
@@ -22,56 +22,62 @@ const AdminSidebar = () => {
         <Offcanvas.Body>
           <hr />
           <ListGroup variant="flush" className="fs-5">
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/dashboard">
                 <i className="fa-solid fa-house-chimney"></i> Home
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/dashboard">
-                <i classname="fa-solid fa-gauge"></i> Dashboard
+                <i className="fa-solid fa-gauge"></i> Dashboard
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/customers">
                 {" "}
-                <i classname="fa-solid fa-people-line"></i> Customers
+                <i className="fa-solid fa-people-line"></i> Customers
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/orders">
                 {" "}
-                <i classname="fa-solid fa-table-cells"></i> Orders
+                <i className="fa-solid fa-table-cells"></i> Orders
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/products">
                 {" "}
-                <i classname="fa-brands fa-product-hunt"></i> Products
+                <i className="fa-brands fa-product-hunt"></i> Products
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/categories">
-                <i classname="fa-solid fa-sitemap"></i> Categories
+                <i className="fa-solid fa-sitemap"></i> Categories
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/payments">
                 {" "}
-                <i classname="fa-solid fa-credit-card"></i> Payments
+                <i className="fa-solid fa-credit-card"></i> Payments
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
               <Link className="nav-link" to="/setting">
                 {" "}
-                <i classname="fa-solid fa-gear"></i> Setting
+                <i className="fa-solid fa-gear"></i> Setting
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
+              <Link className="nav-link" to="/admin-profile">
+                {" "}
+                <i className="fa-solid fa-gear"></i> Admin Profile
               </Link>
             </ListGroup.Item>
           </ListGroup>
-          <ListGroup.Item>
+          <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
             <Link className="nav-link" to="/logout">
               {" "}
-              <i classname="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
             </Link>
           </ListGroup.Item>
         </Offcanvas.Body>

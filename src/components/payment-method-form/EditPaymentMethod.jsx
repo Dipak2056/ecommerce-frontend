@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { postPaymentMethodAction } from "../../pages/payment-method/paymentMethodAction";
 import { CustomInput } from "../custom-input/CustomInput";
 import { MyVerticallyCenteredModal } from "../modal/Modal";
 
@@ -22,16 +23,20 @@ export const EditPaymentMethodForm = () => {
     if (name === "status") {
       value = checked ? "active" : "inactive";
     }
+    setForm({
+      ...form,
+      [name]: value,
+    });
   };
   useEffect(() => {
     setForm(selectedPaymentMethod);
     console.log(form);
   }, [selectedPaymentMethod]);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const { createdAt, updatedAt, __v, ...rest } = form;
-    console.log(rest);
-    // dispatch(postPaymentMethodAction(form));
+    dispatch(postPaymentMethodAction(form));
   };
   const inputfields = [
     {
@@ -67,7 +72,7 @@ export const EditPaymentMethodForm = () => {
             <CustomInput key={i} {...item} onChange={handleOnChange} />
           ))}
           <Form.Group className="mb-3">
-            <Button variant="success" type="submit">
+            <Button variant="success" type="submit" onClick={handleOnSubmit}>
               Add Payment Method
             </Button>
           </Form.Group>

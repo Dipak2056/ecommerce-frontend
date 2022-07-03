@@ -24,6 +24,7 @@ export const PaymentMethodForm = () => {
       [name]: value,
     });
   };
+  console.log(form);
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form);
