@@ -2,12 +2,16 @@ import React, { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import AdminLayout from "../../components/pages/layouts/AdminLayout";
 import { CustomInput } from "../../components/custom-input/CustomInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { updateAdminProfileAction } from "./AdminProfileAction";
 
 const AdminProfile = () => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState({});
   const { user } = useSelector((state) => state.admin);
+
   useEffect(() => {
     setForm(user);
   }, [user]);
@@ -22,8 +26,18 @@ const AdminProfile = () => {
   };
 
   const handleOnSubmit = (e) => {
-    e.preventDefaulr();
-    console.log(form, "to do submit");
+    e.preventDefault();
+    const {
+      createdAt,
+      updatedAt,
+      emailValidationCode,
+      __v,
+      status,
+      ...rest
+    } = form;
+
+    console.log(rest, "to do submit");
+    dispatch(updateAdminProfileAction(rest));
   };
   const inputField = [
     {
@@ -68,7 +82,7 @@ const AdminProfile = () => {
     },
     {
       label: "Current Password",
-      name: "currentPassword",
+      name: "password",
       type: "password",
       required: true,
     },

@@ -38,6 +38,11 @@ export const loginUser = (dataObj) => {
   const url = adminEP + "/login";
   return apiprocessor({ method: "post", url, dataObj });
 };
+//to update the admin profile
+export const updateAdmin = async (dataObj) => {
+  const url = adminEP;
+  return apiprocessor({ method: "put", url, dataObj });
+};
 // =============categories api =======================
 export const getCategories = () => {
   const url = catEP;
