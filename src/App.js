@@ -13,6 +13,7 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/product/NewProduct";
 import EditProduct from "./pages/product/EditProduct";
 import PaymentMethod from "./pages/payment-method/PaymentMethod";
+import ResetPassword from "./pages/register-login/ResetPassword";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
 
           <Route path="/" element={<LoginPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/forgot-password" element={<ResetPassword />}></Route>
           <Route path="/register" element={<RegistrationPage />}></Route>
           <Route path="/payments" element={<PaymentMethod />} />
           <Route

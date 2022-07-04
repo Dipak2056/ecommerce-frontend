@@ -72,6 +72,9 @@ export const LoginForm = () => {
               </Button>
             </Form.Group>
           </Form>
+          <div className="text-end">
+            Forgot password? <a href="/forgot-password">Reset Password</a>
+          </div>
         </div>
       </Container>
     </div>
