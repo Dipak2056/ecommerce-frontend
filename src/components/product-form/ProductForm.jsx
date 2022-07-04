@@ -10,6 +10,7 @@ export const ProductForm = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const [form, setForm] = useState({});
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
@@ -25,7 +26,18 @@ export const ProductForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(postProductAction(form));
+    //we did this approach to send the image as a bundle to the server, formData has all the data of the images and the text
+    const formData = new FormData();
+    for (const key in form) {
+      formData.append(key, form[key]);
+    }
+    images.length && [...images].map((img) => formData.append("images", img));
+    dispatch(postProductAction(formData));
+  };
+  const handleOnImageSelect = (e) => {
+    const { files } = e.target;
+    setImages(files);
+    console.log(files);
   };
 
   const inputFields = [
@@ -84,6 +96,14 @@ export const ProductForm = () => {
       required: true,
       rows: 10,
     },
+    {
+      name: "images",
+      type: "file",
+      multiple: true,
+      accept: "image/*",
+      label: "Upload image",
+      required: true,
+    },
   ];
 
   return (
@@ -117,7 +137,13 @@ export const ProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => (
-        <CustomInput key={i} {...item} onChange={handleOnChange} />
+        <CustomInput
+          key={i}
+          {...item}
+          onChange={
+            item.name === "images" ? handleOnImageSelect : handleOnChange
+          }
+        />
       ))}
 
       <Button variant="primary" type="submit">
