@@ -48,6 +48,11 @@ export const requestPassworResetOTP = (dataObj) => {
   const url = adminEP + "/otp-request";
   return apiprocessor({ method: "post", url, dataObj });
 };
+//password reset
+export const updatePassword = (dataObj) => {
+  const url = adminEP + "/password";
+  return apiprocessor({ method: "patch", url, dataObj });
+};
 // =============categories api =======================
 export const getCategories = () => {
   const url = catEP;
