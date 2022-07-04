@@ -43,6 +43,11 @@ export const updateAdmin = async (dataObj) => {
   const url = adminEP;
   return apiprocessor({ method: "put", url, dataObj });
 };
+//request otp
+export const requestPassworResetOTP = (dataObj) => {
+  const url = adminEP + "/otp-request";
+  return apiprocessor({ method: "post", url, dataObj });
+};
 // =============categories api =======================
 export const getCategories = () => {
   const url = catEP;
