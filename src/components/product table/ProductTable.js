@@ -35,11 +35,6 @@ export const ProductTable = () => {
       ? setIds([...ids, value])
       : setIds(ids.filter((id) => id !== value));
   };
-  const handleOnDelete = (e) => {
-    alert("Are you sure want to delete the product? ") &&
-      dispatch(deleteProductsAction(ids)) &&
-      setIds([]);
-  };
 
   return (
     <div style={{ overflowX: "scroll" }}>
@@ -108,9 +103,9 @@ export const ProductTable = () => {
         {ids.length > 0 && (
           <Button
             className="btn-lg"
+            onClick={() => dispatch(deleteProductsAction(ids)) && setIds([])}
             title="You can only delete if child category doesnot exist"
             variant="danger"
-            onClick={handleOnDelete}
           >
             Delete
           </Button>

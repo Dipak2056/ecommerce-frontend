@@ -64,7 +64,6 @@ export const EditProductForm = () => {
     //bundle in formData
     const formData = new FormData();
     for (const key in rest) {
-      console.log(key, form[key]);
       formData.append(key, rest[key]);
     }
     formData.append("imgToDelete", imgToDelete);
@@ -147,7 +146,6 @@ export const EditProductForm = () => {
       label: "Upload image",
     },
   ];
-  console.log(form);
 
   return (
     <Form className="mb-5" onSubmit={handleOnSubmit}>
@@ -169,15 +167,18 @@ export const EditProductForm = () => {
           onChange={handleOnChange}
         >
           <option value="">..select parent Category</option>
-          {categories.map((item) => (
-            <option
-              key={item._id}
-              value={item._id}
-              selected={item._id === selectedProduct.catId}
-            >
-              {item.catName}
-            </option>
-          ))}
+          {categories.map(
+            (item) =>
+              !item.parentCatId && (
+                <option
+                  key={item._id}
+                  value={item._id}
+                  selected={item._id === selectedProduct.catId}
+                >
+                  {item.catName}
+                </option>
+              )
+          )}
         </Form.Select>
       </Form.Group>
 
@@ -194,7 +195,7 @@ export const EditProductForm = () => {
         {selectedProduct.images &&
           selectedProduct.images.length > 0 &&
           selectedProduct.images.map((imgLink) => (
-            <div className="img p-1">
+            <div className="img p-1" key={imgLink}>
               <Form.Check
                 type="radio"
                 label="Use as thumbnail"
@@ -209,7 +210,7 @@ export const EditProductForm = () => {
                 src={process.env.REACT_APP_IMAGE_SERVER_URL + imgLink.substr(6)}
                 alt="product image"
                 width="150px"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
                 className="img-thumbnail rounded "
                 value={imgLink}
               />
