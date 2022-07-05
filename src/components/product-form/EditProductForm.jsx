@@ -23,13 +23,27 @@ export const EditProductForm = () => {
   const { categories } = useSelector((state) => state.category);
   const { selectedProduct } = useSelector((state) => state.products);
   const [form, setForm] = useState(initialState);
-  console.log(selectedProduct);
+  const [images, setImages] = useState([]);
+  const [imgToDelete, setImgToDelete] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
     setForm(selectedProduct);
   }, [selectedProduct]);
 
+  const handleOnImageSelect = (e) => {
+    const { files } = e.target;
+    setImages(files);
+    console.log(files);
+  };
+  const handleOnImageDelete = (e) => {
+    const { checked, value, name } = e.target;
+    if (checked) {
+      setImgToDelete([...imgToDelete, value]);
+    } else {
+      setImgToDelete(imgToDelete.filter((imgpath) => imgpath !== value));
+    }
+  };
   const handleOnChange = (e) => {
     let { checked, name, value } = e.target;
     if (name === "status") value = checked ? "active" : "inactive";
@@ -40,7 +54,6 @@ export const EditProductForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
     const {
       __v,
       updatedAt,
@@ -120,7 +133,16 @@ export const EditProductForm = () => {
       rows: 10,
       value: form.description,
     },
+    {
+      name: "images",
+      type: "file",
+      multiple: true,
+      accept: "image/*",
+      label: "Upload image",
+      required: true,
+    },
   ];
+  console.log(form);
 
   return (
     <Form className="mb-5" onSubmit={handleOnSubmit}>
@@ -158,10 +180,45 @@ export const EditProductForm = () => {
       </Form.Group>
 
       {inputFields.map((item, i) => (
-        <CustomInput key={i} {...item} onChange={handleOnChange} />
+        <CustomInput
+          key={i}
+          {...item}
+          onChange={
+            item.name === "images" ? handleOnImageSelect : handleOnChange
+          }
+        />
       ))}
+      <div className="d-flex my-5 border border-dark">
+        {selectedProduct.images &&
+          selectedProduct.images.length > 0 &&
+          selectedProduct.images.map((imgLink) => (
+            <div className="img p-1">
+              <Form.Check
+                type="radio"
+                label="Use as thumbnail"
+                onChange={handleOnChange}
+                value={imgLink}
+                name="thumbnail"
+              ></Form.Check>
 
-      <Button variant="primary" type="submit">
+              <img
+                key={imgLink}
+                src={process.env.REACT_APP_IMAGE_SERVER_URL + imgLink.substr(6)}
+                alt="product image"
+                width="150px"
+                crossorigin="anonymous"
+                className="img-thumbnail rounded "
+                value={imgLink}
+              />
+              <Form.Check
+                label="Delete"
+                value={imgLink}
+                onChange={handleOnImageDelete}
+              ></Form.Check>
+            </div>
+          ))}
+      </div>
+      <Button variant="warning" type="submit">
         update
       </Button>
     </Form>
