@@ -17,13 +17,14 @@ const initialState = {
   salesEndDate: null,
   status: "inactive",
   description: "",
+  images: [],
 };
 export const EditProductForm = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { selectedProduct } = useSelector((state) => state.products);
   const [form, setForm] = useState(initialState);
-  const [images, setImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
   const [imgToDelete, setImgToDelete] = useState([]);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export const EditProductForm = () => {
 
   const handleOnImageSelect = (e) => {
     const { files } = e.target;
-    setImages(files);
+    setNewImages(files);
     console.log(files);
   };
   const handleOnImageDelete = (e) => {
@@ -54,18 +55,23 @@ export const EditProductForm = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const {
-      __v,
-      updatedAt,
-      thumbnail,
-      slug,
-      sku,
-      ratings,
-      image,
-      createdAt,
-      ...rest
-    } = form;
-    dispatch(updateProductAction(rest));
+
+    const { __v, updatedAt, slug, sku, ratings, createdAt, ...rest } = form;
+    rest.salesPrice = Number(rest.salesPrice) ? rest.salesPrice : 0;
+    rest.salesStartDate = rest.salesStartDate ? rest.salesStartDate : null;
+    rest.salesEndDate = rest.salesEndDate ? rest.salesEndDate : null;
+
+    //bundle in formData
+    const formData = new FormData();
+    for (const key in rest) {
+      console.log(key, form[key]);
+      formData.append(key, rest[key]);
+    }
+    formData.append("imgToDelete", imgToDelete);
+    newImages.length &&
+      [...newImages].map((img) => formData.append("newImages", img));
+
+    dispatch(updateProductAction(formData));
   };
   const inputFields = [
     {
@@ -139,7 +145,6 @@ export const EditProductForm = () => {
       multiple: true,
       accept: "image/*",
       label: "Upload image",
-      required: true,
     },
   ];
   console.log(form);
@@ -164,18 +169,15 @@ export const EditProductForm = () => {
           onChange={handleOnChange}
         >
           <option value="">..select parent Category</option>
-          {categories.map(
-            (item) =>
-              !item.parentCatId && (
-                <option
-                  key={item._id}
-                  value={item._id}
-                  selected={item._id === selectedProduct.catId}
-                >
-                  {item.catName}
-                </option>
-              )
-          )}
+          {categories.map((item) => (
+            <option
+              key={item._id}
+              value={item._id}
+              selected={item._id === selectedProduct.catId}
+            >
+              {item.catName}
+            </option>
+          ))}
         </Form.Select>
       </Form.Group>
 
@@ -198,6 +200,7 @@ export const EditProductForm = () => {
                 label="Use as thumbnail"
                 onChange={handleOnChange}
                 value={imgLink}
+                checked={imgLink === form.thumbnail}
                 name="thumbnail"
               ></Form.Check>
 

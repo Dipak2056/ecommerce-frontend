@@ -41,7 +41,7 @@ export const updateProductAction = (obj) => async (dispatch) => {
   toast.promise(response, {
     pending: "please Wait ...",
   });
-  const { status, message } = await response;
+  const { status, message, result } = await response;
   toast[status](message);
-  status === "success" && dispatch(fetchProductsAction());
+  status === "success" && dispatch(setSelectedProduct(result));
 };
