@@ -5,11 +5,19 @@ import { CustomInput } from "../../components/custom-input/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateAdminProfileAction } from "./AdminProfileAction";
-
+const passInititalState = {
+  currentPassword: "",
+  password: "",
+  confirmPassword: "",
+};
 const AdminProfile = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({});
+  const [passUpdate, setPassUpdate] = useState(passInititalState);
+  const [error, setError] = useState("");
+  const [disableBtn, setDisableBtn] = useState(true);
+
   const { user } = useSelector((state) => state.admin);
 
   useEffect(() => {
@@ -25,6 +33,29 @@ const AdminProfile = () => {
     console.log(form);
   };
 
+  const handleOnPasswordChange = (e) => {
+    const { name, value } = e.target;
+    (name === "password" || name === "confirmPassword") && setError("");
+    !disableBtn && setDisableBtn(true);
+    setPassUpdate({
+      ...passUpdate,
+      [name]: value,
+    });
+    if (name === "confirmPassword") {
+      const { password } = passUpdate;
+      password !== value && setError("password donot match");
+      password.length < 6 &&
+        setError("passwod must be longer than 6 character.");
+      !/[a-z]/.test(password) && setError("password must contain lowercase");
+      !/[A-Z]/.test(password) && setError("password must contain uppercase");
+      !/[0-9]/.test(password) && setError("password must contain number");
+
+      !passUpdate.password && setError("new password must be provided");
+    }
+
+    console.log(passUpdate);
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const {
@@ -38,6 +69,20 @@ const AdminProfile = () => {
 
     console.log(rest, "to do submit");
     dispatch(updateAdminProfileAction(rest));
+  };
+  const handleOnPasswordSubmit = (e) => {
+    e.preventDefault();
+    const { confirmPassword, password } = passUpdate;
+    if (confirmPassword !== password) {
+      return alert("passwords dont match");
+    }
+    const obj = {
+      password,
+      email: user.email,
+    };
+    console.log(obj);
+
+    // dispatch(updateAdminProfileAction(rest));
   };
   const inputField = [
     {
@@ -87,6 +132,32 @@ const AdminProfile = () => {
       required: true,
     },
   ];
+  const resetPassField = [
+    {
+      label: "Current Password",
+      name: "currentPass",
+      type: "password",
+      value: passUpdate.currentpassword,
+      required: true,
+    },
+    {
+      label: "New Password",
+      name: "currentPassword",
+      type: "password",
+      value: passUpdate.password,
+      required: true,
+    },
+    {
+      label: "Confirm Password",
+      name: "confirmPassord",
+      type: "password",
+      value: passUpdate.confirmPassword,
+      required: true,
+    },
+  ];
+  const disableButton = () => {
+    !error && setDisableBtn(false);
+  };
   return (
     <div>
       <AdminLayout>
@@ -102,6 +173,18 @@ const AdminProfile = () => {
         <hr />
         <div className="update-password">
           <h3>password update</h3>
+          <Form onSubmit={handleOnPasswordSubmit}>
+            {resetPassField.map((item, i) => (
+              <CustomInput
+                key={i}
+                {...item}
+                onChange={handleOnPasswordChange}
+              />
+            ))}
+            <Button type="submit" disabled={disableBtn}>
+              update Password
+            </Button>
+          </Form>
         </div>
       </AdminLayout>
     </div>
