@@ -53,6 +53,10 @@ export const updatePassword = (dataObj) => {
   const url = adminEP + "/password";
   return apiprocessor({ method: "patch", url, dataObj });
 };
+export const updateAdminPasswordFromProfile = (dataObj) => {
+  const url = adminEP + "/update-password";
+  return apiprocessor({ method: "patch", url, dataObj });
+};
 // =============categories api =======================
 export const getCategories = () => {
   const url = catEP;

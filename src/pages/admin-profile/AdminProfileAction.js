@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import {
   requestPassworResetOTP,
   updateAdmin,
+  updateAdminPasswordFromProfile,
   updatePassword,
 } from "../../helpers/axioshelper";
 import {
@@ -26,6 +27,13 @@ export const requestPassResetOTP = (obj) => async (dispatch) => {
 };
 export const resetPassAction = (obj) => async (dispatch) => {
   const responsePromise = updatePassword(obj);
+  toast.promise(responsePromise, { pending: "please Wait" });
+  const { status, message } = await responsePromise;
+  toast[status](message);
+};
+
+export const updatePassAction = (obj) => async (dispatch) => {
+  const responsePromise = updateAdminPasswordFromProfile(obj);
   toast.promise(responsePromise, { pending: "please Wait" });
   const { status, message } = await responsePromise;
   toast[status](message);

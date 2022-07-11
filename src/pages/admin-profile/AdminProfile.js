@@ -4,7 +4,10 @@ import AdminLayout from "../../components/pages/layouts/AdminLayout";
 import { CustomInput } from "../../components/custom-input/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { updateAdminProfileAction } from "./AdminProfileAction";
+import {
+  updateAdminProfileAction,
+  updatePassAction,
+} from "./AdminProfileAction";
 const passInititalState = {
   currentPass: "",
   password: "",
@@ -70,18 +73,21 @@ const AdminProfile = () => {
   };
   const handleOnPasswordSubmit = (e) => {
     e.preventDefault();
-    const { confirmPassword, password } = passUpdate;
+    const { currentPass, confirmPassword, password } = passUpdate;
     if (confirmPassword !== password) {
       return alert("passwords dont match");
     }
     const obj = {
       password,
-      confirmPassword,
+      currentPass,
       email: user.email,
     };
     console.log(obj);
 
-    // dispatch(updateAdminProfileAction(rest));
+    dispatch(updatePassAction(obj));
+  };
+  const disableButton = () => {
+    !error && setDisableBtn(false);
   };
   const inputField = [
     {
@@ -155,9 +161,7 @@ const AdminProfile = () => {
       onBlur: disableButton,
     },
   ];
-  const disableButton = () => {
-    !error && setDisableBtn(false);
-  };
+
   return (
     <div>
       <AdminLayout>
