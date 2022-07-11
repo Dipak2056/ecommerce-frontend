@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateAdminProfileAction } from "./AdminProfileAction";
 const passInititalState = {
-  currentPassword: "",
+  currentPass: "",
   password: "",
   confirmPassword: "",
 };
@@ -52,8 +52,6 @@ const AdminProfile = () => {
 
       !passUpdate.password && setError("new password must be provided");
     }
-
-    console.log(passUpdate);
   };
 
   const handleOnSubmit = (e) => {
@@ -78,6 +76,7 @@ const AdminProfile = () => {
     }
     const obj = {
       password,
+      confirmPassword,
       email: user.email,
     };
     console.log(obj);
@@ -137,22 +136,23 @@ const AdminProfile = () => {
       label: "Current Password",
       name: "currentPass",
       type: "password",
-      value: passUpdate.currentpassword,
+      value: passUpdate.currentPass,
       required: true,
     },
     {
       label: "New Password",
-      name: "currentPassword",
+      name: "password",
       type: "password",
       value: passUpdate.password,
       required: true,
     },
     {
       label: "Confirm Password",
-      name: "confirmPassord",
+      name: "confirmPassword",
       type: "password",
       value: passUpdate.confirmPassword,
       required: true,
+      onBlur: disableButton,
     },
   ];
   const disableButton = () => {
@@ -181,7 +181,12 @@ const AdminProfile = () => {
                 onChange={handleOnPasswordChange}
               />
             ))}
-            <Button type="submit" disabled={disableBtn}>
+            <Form.Text>
+              Password must contain Uppercase, Lowercase, Number and at Least 6
+              character long.
+            </Form.Text>
+            <div className="text-danger">{error}</div>
+            <Button type="submit" disable={disableBtn}>
               update Password
             </Button>
           </Form>
