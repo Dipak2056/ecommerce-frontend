@@ -25,10 +25,9 @@ export const postLoginAction = (user) => async (dispatch) => {
   const data = await promiseData;
 
   if (data.status === "success") {
-    console.log(data.user);
+    sessionStorage.setItem("accessJWT", data.accessJWT);
+    localStorage.setItem("refreshJWT", data.refreshJWT);
     dispatch(setUser(data.user));
-
-    return;
   }
 
   data.status === "error" && toast[data.status](data.message);
