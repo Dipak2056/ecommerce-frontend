@@ -31,19 +31,61 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          <Route path="/admin-profile" element={<AdminProfile />} />
+          <Route
+            path="/admin-profile"
+            element={
+              <PrivateRoute>
+                <AdminProfile />
+              </PrivateRoute>
+            }
+          />
 
-          <Route path="/categories" element={<Categories />}></Route>
+          <Route
+            path="/categories"
+            element={
+              <PrivateRoute>
+                <Categories />
+              </PrivateRoute>
+            }
+          ></Route>
 
-          <Route path="/products" element={<Product />}></Route>
-          <Route path="/product/new" element={<NewProduct />}></Route>
-          <Route path="/product/edit/:_id" element={<EditProduct />}></Route>
+          <Route
+            path="/products"
+            element={
+              <PrivateRoute>
+                <Product />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/product/new"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/product/edit/:_id"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          ></Route>
 
           <Route path="/" element={<LoginPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/forgot-password" element={<ResetPassword />}></Route>
           <Route path="/register" element={<RegistrationPage />}></Route>
-          <Route path="/payments" element={<PaymentMethod />} />
+          <Route
+            path="/payments"
+            element={
+              <PrivateRoute>
+                <PaymentMethod />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/admin/verify-email"
             element={<EmailVerification />}
