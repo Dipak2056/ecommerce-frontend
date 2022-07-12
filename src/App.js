@@ -14,6 +14,7 @@ import NewProduct from "./pages/product/NewProduct";
 import EditProduct from "./pages/product/EditProduct";
 import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import ResetPassword from "./pages/register-login/ResetPassword";
+import PrivateRoute from "./components/Private-route/PrivateRoute";
 
 const App = () => {
   return (
@@ -21,7 +22,15 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/* private routes  */}
-          <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
           <Route path="/admin-profile" element={<AdminProfile />} />
 
           <Route path="/categories" element={<Categories />}></Route>

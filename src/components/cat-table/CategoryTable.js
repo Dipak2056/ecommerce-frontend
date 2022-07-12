@@ -28,7 +28,6 @@ export const CategoryTable = () => {
   };
   const parentCats = categories.filter((item) => !item.parentCatId);
   const childCats = categories.filter((item) => item.parentCatId);
-  console.log(categories, parentCats);
   return (
     <div>
       <EditCategories selectedCat={selectedCat} />
