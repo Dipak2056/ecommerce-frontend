@@ -5,12 +5,13 @@ const catEP = rootUrlAPI + "/category";
 const productEP = rootUrlAPI + "/products";
 const paymentMethodEp = rootUrlAPI + "/payment-method";
 
-const apiprocessor = async ({ method, url, dataObj }) => {
+const apiprocessor = async ({ method, url, dataObj, config }) => {
   try {
     const { data } = await axios({
       method,
       url,
       data: dataObj,
+      config,
     });
     return data;
   } catch (error) {
@@ -28,6 +29,16 @@ const apiprocessor = async ({ method, url, dataObj }) => {
 export const postUser = async (dataObj) => {
   const url = adminEP;
   return apiprocessor({ method: "post", url, dataObj });
+};
+export const getAdminUser = async () => {
+  const url = adminEP;
+  return apiprocessor({
+    method: "get",
+    url,
+    config: {
+      headers: { Authorization: sessionStorage.getItem("accessJWT") },
+    },
+  });
 };
 
 export const postEmailVerification = async (dataObj) => {
