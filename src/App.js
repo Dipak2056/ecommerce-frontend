@@ -13,6 +13,7 @@ import Product from "./pages/product/Product";
 import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import ResetPassword from "./pages/register-login/ResetPassword";
 import PrivateRoute from "./components/Private-route/PrivateRoute";
+import Setting from "./pages/setting/Setting";
 
 const App = () => {
   return (
@@ -43,6 +44,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Categories />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/setting"
+            element={
+              <PrivateRoute>
+                <Setting />
               </PrivateRoute>
             }
           ></Route>
