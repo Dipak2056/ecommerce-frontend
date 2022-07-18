@@ -57,45 +57,43 @@ export const ProductTable = () => {
         </thead>
         <tbody>
           {products.map((item, i) => (
-            <>
-              <tr key={item._id}>
-                <td>
-                  <Form.Check
-                    name="status"
-                    id="custom-switch"
-                    onChange={handleOnSelect}
-                    value={item._id}
-                    checked={ids.includes(item._id)}
-                  />
-                </td>
-                <td>{i + 1}</td>
-                <td
-                  className={
-                    item.status === "active" ? "text-success" : "text-danger"
-                  }
-                >
-                  {item.status}
-                </td>
-                <td>{item.name}</td>
-                <td>{item.qty}</td>
-                <td>${item.price.toLocaleString()}</td>
-                <td>{item.salesPrice || " - "}</td>
-                <td>
-                  {item.salesStartDate
-                    ? new Date(item.salesStartDate).toLocaleDateString() +
-                      "-" +
-                      new Date(item.salesEndDate).toLocaleDateString()
-                    : "-"}
-                </td>
-                <td className="px-5">
-                  <Link to={`/product/edit/${item._id}`}>
-                    <Button variant="warning" className="btn-sm">
-                      Edit
-                    </Button>{" "}
-                  </Link>
-                </td>
-              </tr>
-            </>
+            <tr key={i}>
+              <td>
+                <Form.Check
+                  name="status"
+                  id="custom-switch"
+                  onChange={handleOnSelect}
+                  value={item._id}
+                  checked={ids.includes(item._id)}
+                />
+              </td>
+              <td>{i + 1}</td>
+              <td
+                className={
+                  item.status === "active" ? "text-success" : "text-danger"
+                }
+              >
+                {item.status}
+              </td>
+              <td>{item.name}</td>
+              <td>{item.qty}</td>
+              <td>${item.price.toLocaleString()}</td>
+              <td>{item.salesPrice || " - "}</td>
+              <td>
+                {item.salesStartDate
+                  ? new Date(item.salesStartDate).toLocaleDateString() +
+                    "-" +
+                    new Date(item.salesEndDate).toLocaleDateString()
+                  : "-"}
+              </td>
+              <td className="px-5">
+                <Link to={`/product/edit/${item._id}`}>
+                  <Button variant="warning" className="btn-sm">
+                    Edit
+                  </Button>{" "}
+                </Link>
+              </td>
+            </tr>
           ))}
         </tbody>
       </Table>

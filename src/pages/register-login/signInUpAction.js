@@ -1,11 +1,15 @@
-import { postUser, loginUser, getAdminUser } from "../../helpers/axioshelper";
+import {
+  postUser,
+  loginUser,
+  getAdminUser,
+  requestNewJWT,
+} from "../../helpers/axioshelper";
 import { isPending, responseResolved } from "./signInUpSlice";
 import { toast } from "react-toastify";
 import { setUser } from "../admin-profile/AdminProfileSlice";
 
 export const postUserAction = (user) => async (dispatch) => {
   dispatch(isPending());
-  console.log(user);
   //call axios helper to call api
   const promiseData = postUser(user);
   toast.promise(promiseData, {
@@ -39,14 +43,25 @@ const fetchUser = (accessJWT) => async (dispatch) => {
   response.status === "success" && dispatch(setUser(response.user));
 };
 
-export const autoAdminLogin = () => (dispatch) => {
+export const autoAdminLogin = () => async (dispatch) => {
   const accessJWT = sessionStorage.getItem("accessJWT");
-  const refreshJWT = sessionStorage.getItem("refreshJWT");
+  const refreshJWT = localStorage.getItem("refreshJWT");
   //if access jwt exists, fetch user and mount user in our state...
   if (accessJWT) {
     dispatch(fetchUser());
     return;
+  } else if (refreshJWT) {
+    //if refresh jwt exists, fetch new access jwt and fetch the user...
+    const token = await requestNewJWT();
+    token ? dispatch(fetchUser()) : dispatch(adminLogout());
+  } else {
+    dispatch(adminLogout());
   }
   //else
-  //if refresh jwt exists, fetch new access jwt and fetch the user...
+};
+
+export const adminLogout = () => (dispatch) => {
+  sessionStorage.removeItem("accessJWT");
+  localStorage.removeItem("refreshJWT");
+  dispatch(setUser({}));
 };

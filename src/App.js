@@ -10,8 +10,6 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import AdminProfile from "./pages/admin-profile/AdminProfile";
 import Categories from "./pages/categories/Categories";
 import Product from "./pages/product/Product";
-import NewProduct from "./pages/product/NewProduct";
-import EditProduct from "./pages/product/EditProduct";
 import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import ResetPassword from "./pages/register-login/ResetPassword";
 import PrivateRoute from "./components/Private-route/PrivateRoute";

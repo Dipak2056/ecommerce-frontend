@@ -1,13 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import { Button, Container, Form, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { postLoginAction } from "../../pages/register-login/signInUpAction";
 import "./loginform.css";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const origin =
+    (location.state && location.state.from.pathname) || "/dashboard";
 
   //pull data from redux store
   const { isLoading } = useSelector((state) => state.signInUp);
@@ -17,7 +21,7 @@ export const LoginForm = () => {
   const passRef = useRef();
 
   useEffect(() => {
-    user._id && navigate("/dashboard");
+    user._id && navigate(origin);
   }, [user]);
 
   const handleSubmit = (e) => {

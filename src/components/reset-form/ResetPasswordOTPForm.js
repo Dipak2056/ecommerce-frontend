@@ -1,18 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {
-  requestPassResetOTP,
-  resetPassAction,
-} from "../../pages/admin-profile/AdminProfileAction";
-import { postLoginAction } from "../../pages/register-login/signInUpAction";
+import { resetPassAction } from "../../pages/admin-profile/AdminProfileAction";
 import "./resetPassForm.css";
-const initialState = {
-  otp: "",
-  password: "",
-  confirmPassword: "",
-};
+
 export const ResetPasswordOTPForm = () => {
   //pull data from redux store
   const dispatch = useDispatch();

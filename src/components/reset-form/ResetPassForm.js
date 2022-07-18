@@ -1,9 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Alert, Button, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { requestPassResetOTP } from "../../pages/admin-profile/AdminProfileAction";
-import { postLoginAction } from "../../pages/register-login/signInUpAction";
 import "./resetPassForm.css";
 
 export const ResetPassForm = () => {

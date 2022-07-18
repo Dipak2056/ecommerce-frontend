@@ -7,7 +7,6 @@ import {
   fetchPaymentMethods,
   editPaymentMethodAction,
 } from "../../pages/payment-method/paymentMethodAction";
-import { toggleModal } from "../../system-state/systemSlice";
 import { EditPaymentMethodForm } from "../payment-method-form/EditPaymentMethod";
 
 const PaymentMethodTable = () => {

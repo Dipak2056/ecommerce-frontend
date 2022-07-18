@@ -36,7 +36,7 @@ export const EditPaymentMethodForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const { createdAt, updatedAt, __v, ...rest } = form;
-    dispatch(postPaymentMethodAction(form));
+    dispatch(postPaymentMethodAction(rest));
   };
   const inputfields = [
     {

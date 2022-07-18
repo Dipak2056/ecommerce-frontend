@@ -3,6 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { adminLogout } from "../../pages/register-login/signInUpAction";
 import { toggleSidebar } from "../../system-state/systemSlice";
 
 const AdminSidebar = () => {
@@ -74,8 +75,8 @@ const AdminSidebar = () => {
               </Link>
             </ListGroup.Item>
           </ListGroup>
-          <ListGroup.Item onClick={() => dispatch(toggleSidebar())}>
-            <Link className="nav-link" to="/logout">
+          <ListGroup.Item onClick={() => dispatch(adminLogout())}>
+            <Link className="nav-link" to="/">
               {" "}
               <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
             </Link>
