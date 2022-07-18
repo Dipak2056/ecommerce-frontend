@@ -14,6 +14,7 @@ import PaymentMethod from "./pages/payment-method/PaymentMethod";
 import ResetPassword from "./pages/register-login/ResetPassword";
 import PrivateRoute from "./components/Private-route/PrivateRoute";
 import Setting from "./pages/setting/Setting";
+import { Customers } from "./pages/customer/Customers";
 
 const App = () => {
   return (
@@ -44,6 +45,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Categories />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/customers"
+            element={
+              <PrivateRoute>
+                <Customers />
               </PrivateRoute>
             }
           ></Route>

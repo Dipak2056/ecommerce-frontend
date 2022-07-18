@@ -4,6 +4,7 @@ const adminEP = rootUrlAPI + "/admin";
 const catEP = rootUrlAPI + "/category";
 const productEP = rootUrlAPI + "/products";
 const paymentMethodEp = rootUrlAPI + "/payment-method";
+const customersMethodEp = rootUrlAPI + "/customers";
 
 const apiprocessor = async ({ method, url, dataObj, headers }) => {
   try {
@@ -234,6 +235,16 @@ export const deletePaymentMethod = (_id) => {
   const url = _id ? paymentMethodEp + "/" + _id : paymentMethodEp;
   return apiprocessor({
     method: "delete",
+    url,
+    headers: { Authorization: sessionStorage.getItem("accessJWT") },
+  });
+};
+//======customer management
+export const getCustomers = (_id) => {
+  const url = _id ? customersMethodEp + "/" + _id : customersMethodEp;
+
+  return apiprocessor({
+    method: "get",
     url,
     headers: { Authorization: sessionStorage.getItem("accessJWT") },
   });
