@@ -12,10 +12,14 @@ export const ProductTable = () => {
   const [ids, setIds] = useState([]);
   const { products } = useSelector((state) => state.products);
 
+  //local states
+  const [displayProd, setDisplayProd] = useState([]);
+
   useEffect(() => {
     //call api to fetch
-    dispatch(fetchProductsAction());
-  }, []);
+    !displayProd.length && dispatch(fetchProductsAction());
+    products.length && setDisplayProd(products);
+  }, [products]);
 
   const handleOnSelect = (e) => {
     const { checked, value } = e.target;
@@ -36,9 +40,45 @@ export const ProductTable = () => {
       : setIds(ids.filter((id) => id !== value));
   };
 
+  const handleOnFilter = (e) => {
+    const { value } = e.target;
+    if (!value) {
+      setDisplayProd(products);
+    } else {
+      setDisplayProd(products.filter((item) => item.status === value));
+    }
+  };
+  const handleOnLiveSearch = (e) => {
+    const { value } = e.target;
+    setDisplayProd(
+      products.filter((item) =>
+        item.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
+
   return (
     <div style={{ overflowX: "scroll" }}>
-      <p>{products.length} Products Found in the store</p>
+      <div className="mt-5 d-flex justify-content-end">
+        <Form.Control
+          name="search"
+          placeholder="search..."
+          className="m-3"
+          onChange={handleOnLiveSearch}
+        />
+        <Form.Select
+          variant="success"
+          className="m-3"
+          onChange={handleOnFilter}
+        >
+          <option value="">----</option>
+          <option value="active">Active</option>
+          <option value="inactive">In Active</option>
+        </Form.Select>
+      </div>
+      <hr />
+      <p>{displayProd.length} Products Found in the store</p>
+
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -56,7 +96,7 @@ export const ProductTable = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((item, i) => (
+          {displayProd.map((item, i) => (
             <tr key={i}>
               <td>
                 <Form.Check
