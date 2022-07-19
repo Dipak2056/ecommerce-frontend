@@ -124,10 +124,10 @@ export const ProductForm = () => {
           required
           onChange={handleOnChange}
         >
-          <option value="">..select parent Category</option>
+          <option value="">..select Category</option>
           {categories.map(
             (item) =>
-              !item.parentCatId && (
+              item.parentCatId && (
                 <option key={item._id} value={item._id}>
                   {item.catName}
                 </option>
