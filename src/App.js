@@ -16,6 +16,7 @@ import PrivateRoute from "./components/Private-route/PrivateRoute";
 import Setting from "./pages/setting/Setting";
 import { Customers } from "./pages/customer/Customers";
 import { ProductReview } from "./pages/productreview/ProductReview";
+import { Orders } from "./pages/orders/Orders";
 
 const App = () => {
   return (
@@ -79,6 +80,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Product />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/orders"
+            element={
+              <PrivateRoute>
+                <Orders />
               </PrivateRoute>
             }
           ></Route>

@@ -6,6 +6,7 @@ const productEP = rootUrlAPI + "/products";
 const paymentMethodEp = rootUrlAPI + "/payment-method";
 const customersMethodEp = rootUrlAPI + "/customers";
 const productreviewsMethodEP = rootUrlAPI + "/reviews";
+const ordersMethodEP = rootUrlAPI + "/orders";
 
 const apiprocessor = async ({ method, url, dataObj, headers }) => {
   try {
@@ -254,6 +255,17 @@ export const getCustomers = (_id) => {
 //======review management
 export const getReviews = () => {
   const url = productreviewsMethodEP;
+
+  return apiprocessor({
+    method: "get",
+    url,
+    headers: { Authorization: sessionStorage.getItem("accessJWT") },
+  });
+};
+
+//orders end point
+export const getOrders = () => {
+  const url = ordersMethodEP;
 
   return apiprocessor({
     method: "get",
