@@ -19,6 +19,7 @@ import Setting from "./pages/setting/Setting";
 import { Customers } from "./pages/customer/Customers";
 import { ProductReview } from "./pages/productreview/ProductReview";
 import { Orders } from "./pages/orders/Orders";
+import { OrderDetail } from "./pages/orders/OrderDetails";
 
 const App = () => {
   return (
@@ -90,6 +91,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Orders />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/orders/:_id"
+            element={
+              <PrivateRoute>
+                <OrderDetail />
               </PrivateRoute>
             }
           ></Route>

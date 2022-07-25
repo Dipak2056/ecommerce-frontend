@@ -2,6 +2,6 @@ import { getReviews } from "../../helpers/axioshelper";
 import { setReviews } from "./productreview.slice";
 
 export const reviewsAction = () => async (dispatch) => {
-  const { data } = await getReviews();
-  dispatch(setReviews(data));
+  const { result } = await getReviews();
+  dispatch(setReviews(result));
 };
