@@ -22,7 +22,6 @@ export const ProductReview = () => {
               <th>Product Name</th>
               <th>reviewed By</th>
               <th>rating</th>
-              <th>reviewedBy_id</th>
             </tr>
           </thead>
           <tbody>
@@ -34,13 +33,11 @@ export const ProductReview = () => {
                 <td>{item.productName}</td>
                 <td>{item.rating}</td>
                 <td>{item.reviewedBy}</td>
-                <td>{item.reviewedById}</td>
                 <td>
                   <Button variant="link"> Info</Button>
                 </td>
               </tr>
             ))}
-            ;
           </tbody>
         </Table>
       </AdminLayout>
